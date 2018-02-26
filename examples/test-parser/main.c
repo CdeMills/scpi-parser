@@ -91,12 +91,13 @@ int main(int argc, char** argv) {
     int result;
 
     SCPI_Init(&scpi_context,
-            scpi_commands,
-            &scpi_interface,
-            scpi_units_def,
-            SCPI_IDN1, SCPI_IDN2, SCPI_IDN3, SCPI_IDN4,
-            scpi_input_buffer, SCPI_INPUT_BUFFER_LENGTH,
-            scpi_error_queue_data, SCPI_ERROR_QUEUE_SIZE);
+              &in_scpicmd_name,
+              scpi_commands_var,
+              &scpi_interface,
+              scpi_units_def,
+              SCPI_IDN1, SCPI_IDN2, SCPI_IDN3, SCPI_IDN4,
+              scpi_input_buffer, SCPI_INPUT_BUFFER_LENGTH,
+              scpi_error_queue_data, SCPI_ERROR_QUEUE_SIZE);
 
 #define TEST_SCPI_INPUT(cmd)    result = SCPI_Input(&scpi_context, cmd, strlen(cmd))
 

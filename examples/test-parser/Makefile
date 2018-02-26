@@ -1,7 +1,17 @@
+# Handling the Gperf code
+GPERF = /usr/bin/gperf
+# everything should be inside ../common/scpi-const.gperf../common/scpi-const.gperf
+GPERFFLAGS = 
+BUILT_SOURCES = ../commom/scpi-const.c
 
 PROG = test
 
 SRCS = main.c ../common/scpi-def.c
+
+../common/scpi-def.c: ../common/scpi-const.c
+../common/scpi-const.c: ../common/scpi-const.gperf
+	$(GPERF) $(GPERFFLAGS) < $< > $@ 
+
 CFLAGS += -Wextra -Wmissing-prototypes -Wimplicit -I ../../libscpi/inc/
 LDFLAGS += -lm ../../libscpi/dist/libscpi.a -Wl,--as-needed
 
