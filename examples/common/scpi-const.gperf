@@ -1,0 +1,74 @@
+%{
+/**
+ * @file   scpi-const.c
+ * @date   Thu Nov 15 10:58:45 UTC 2012
+ *
+ * @brief  SCPI parser test: constant patterns
+ *
+ *
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "scpi/scpi.h"
+#include "scpi-def.h"
+%}
+%struct-type
+%compare-strncmp
+%ignore-case
+%language=ANSI-C
+%define slot-name pattern
+%define initializer-suffix ,NULL
+%define lookup-function-name in_scpicmd_name
+%omit-struct-type
+
+const scpi_command_t { const char *pattern;  scpi_command_callback_t callback; };
+
+%%
+## /* IEEE Mandated Commands (SCPI std V1999.0 4.1.1) */
+*CLS, SCPI_CoreCls
+*ESE,  SCPI_CoreEse
+*ESE?,  SCPI_CoreEseQ
+*ESR?,  SCPI_CoreEsrQ
+*IDN?,  SCPI_CoreIdnQ
+*OPC,  SCPI_CoreOpc
+*OPC?,  SCPI_CoreOpcQ
+*RST,  SCPI_CoreRst
+*SRE,  SCPI_CoreSre
+*SRE?,  SCPI_CoreSreQ
+*STB?,  SCPI_CoreStbQ
+*TST?,  My_CoreTstQ
+*WAI,  SCPI_CoreWai
+## /* Required SCPI commands (SCPI std V1999.0 4.2.1) */
+SYST:ERR?,  SCPI_SystemErrorNextQ
+SYST:ERR:COUN?,  SCPI_SystemErrorCountQ
+SYST:VERS?,  SCPI_SystemVersionQ
+## /* {.pattern = "STATus:OPERation?",  scpi_stub_callback */
+## /* {.pattern = "STATus:OPERation:EVENt?",  scpi_stub_callback */
+## /* {.pattern = "STATus:OPERation:CONDition?",  scpi_stub_callback */
+## /* {.pattern = "STATus:OPERation:ENABle",  scpi_stub_callback */
+## /* {.pattern = "STATus:OPERation:ENABle?",  scpi_stub_callback */
+STAT:QUES?,  SCPI_StatusQuestionableEventQ
+## /* {.pattern = "STATus:QUEStionable:CONDition?",  scpi_stub_callback */
+STAT:QUES:ENAB,  SCPI_StatusQuestionableEnable
+STAT:QUES:ENAB?,  SCPI_StatusQuestionableEnableQ
+STAT:PRES,  SCPI_StatusPreset
+## /* DMM */
+MEAS:VOLT:DC?,  DMM_MeasureVoltageDcQ
+CONF:VOLT:DC,  DMM_ConfigureVoltageDc
+MEAS:VOLT:DC:RAT?,  SCPI_StubQ
+MEAS:VOLT:AC?,  DMM_MeasureVoltageAcQ
+MEAS:CURR:DC?,  SCPI_StubQ
+MEAS:CURR:AC?,  SCPI_StubQ
+MEAS:RES?,  SCPI_StubQ
+MEAS:FRES?,  SCPI_StubQ
+MEAS:FREQ?,  SCPI_StubQ
+MEAS:PER?,  SCPI_StubQ
+SYST:COMM:TCPIP:CONTROL?,  SCPI_SystemCommTcpipControlQ
+TEST:BOOL,  TEST_Bool
+TEST:CHO?,  TEST_ChoiceQ
+##/* {.pattern = "TEST#:NUMbers#",  TEST_Numbers */
+TEST:TEXT,  TEST_Text
+TEST:ARB?,  TEST_ArbQ
+TEST:CHAN,  TEST_Chanlst
