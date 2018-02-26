@@ -10,7 +10,9 @@
 #define SCPI_IDN3 NULL
 #define SCPI_IDN4 "01-02"
 
-extern const scpi_command_t scpi_commands[];
+extern const scpi_command_t *in_scpicmd_name
+  (const char *str, unsigned int len);
+extern const scpi_command_t scpi_commands_var[];
 extern scpi_interface_t scpi_interface;
 extern char scpi_input_buffer[];
 extern scpi_error_t scpi_error_queue_data[];
