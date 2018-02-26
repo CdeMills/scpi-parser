@@ -364,12 +364,10 @@ extern "C" {
         scpi_command_callback_t flush;
         scpi_command_callback_t reset;
     };
-    /* This must be defined outside of libscpi */
-    extern const scpi_command_t *in_scpicmd_name
-       (register const char *str, register unsigned int len);
-    
-      struct _scpi_t {
-        const scpi_command_t * cmdlist_const;
+      
+    struct _scpi_t {
+        const scpi_command_t *(*in_scpicmd_name)
+           (const char *str, unsigned int len);
         const scpi_command_t * cmdlist_var;
         scpi_buffer_t buffer;
         scpi_param_list_t param_list;

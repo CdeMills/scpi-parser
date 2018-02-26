@@ -170,7 +170,7 @@ static scpi_bool_t findCommandHeader(scpi_t * context, const char * header, int 
 
     /* iterate on 'fixed' commands -- fast path */
     /* call gperf as -c -C -H month_hash -N in_scpicmd_name -K pattern */
-    cmd = in_scpicmd_name(header, len);
+    cmd = context->in_scpicmd_name(header, len);
     if (cmd) {
       context->param_list.cmd = cmd;
       return TRUE;
@@ -269,7 +269,8 @@ scpi_bool_t SCPI_Parse(scpi_t * context, char * data, int len) {
  * @param error_queue_size
  */
 void SCPI_Init(scpi_t * context,
-        const scpi_command_t * commands_const,
+        const scpi_command_t *(*in_scpicmd_name)
+               (const char *str, unsigned int len),
         const scpi_command_t * commands_var,
         scpi_interface_t * interface,
         const scpi_unit_def_t * units,
@@ -277,7 +278,7 @@ void SCPI_Init(scpi_t * context,
         char * input_buffer, size_t input_buffer_length,
         scpi_error_t * error_queue_data, int16_t error_queue_size) {
     memset(context, 0, sizeof (*context));
-    context->cmdlist_const = commands_const;
+    context->in_scpicmd_name = in_scpicmd_name;
     context->cmdlist_var = commands_var;
     context->interface = interface;
     context->units = units;
