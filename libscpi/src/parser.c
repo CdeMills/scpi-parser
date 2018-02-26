@@ -168,13 +168,12 @@ static scpi_bool_t findCommandHeader(scpi_t * context, const char * header, int 
     int32_t i;
     const scpi_command_t * cmd;
 
-    /* iterate on 'fixed' commands */
-    for (i = 0; context->cmdlist_const[i].pattern != NULL; i++) {
-        cmd = &context->cmdlist_const[i];
-        if (matchCommand(cmd->pattern, header, len, NULL, 0, 0)) {
-            context->param_list.cmd = cmd;
-            return TRUE;
-        }
+    /* iterate on 'fixed' commands -- fast path */
+    /* call gperf as -c -C -H month_hash -N in_scpicmd_name -K pattern */
+    cmd = in_scpicmd_name(header, len);
+    if (cmd) {
+      context->param_list.cmd = cmd;
+      return TRUE;
     }
 
     /* iterate on 'variable' commands */
