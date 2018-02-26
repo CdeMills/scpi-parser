@@ -161,14 +161,25 @@ static scpi_bool_t processCommand(scpi_t * context) {
 /**
  * Cycle all patterns and search matching pattern. Execute command callback.
  * @param context
+ * @warning this should be optimized
  * @result TRUE if context->paramlist is filled with correct values
  */
 static scpi_bool_t findCommandHeader(scpi_t * context, const char * header, int len) {
     int32_t i;
     const scpi_command_t * cmd;
 
-    for (i = 0; context->cmdlist[i].pattern != NULL; i++) {
-        cmd = &context->cmdlist[i];
+    /* iterate on 'fixed' commands */
+    for (i = 0; context->cmdlist_const[i].pattern != NULL; i++) {
+        cmd = &context->cmdlist_const[i];
+        if (matchCommand(cmd->pattern, header, len, NULL, 0, 0)) {
+            context->param_list.cmd = cmd;
+            return TRUE;
+        }
+    }
+
+    /* iterate on 'variable' commands */
+    for (i = 0; context->cmdlist_var[i].pattern != NULL; i++) {
+        cmd = &context->cmdlist_var[i];
         if (matchCommand(cmd->pattern, header, len, NULL, 0, 0)) {
             context->param_list.cmd = cmd;
             return TRUE;
@@ -259,14 +270,16 @@ scpi_bool_t SCPI_Parse(scpi_t * context, char * data, int len) {
  * @param error_queue_size
  */
 void SCPI_Init(scpi_t * context,
-        const scpi_command_t * commands,
+        const scpi_command_t * commands_const,
+        const scpi_command_t * commands_var,
         scpi_interface_t * interface,
         const scpi_unit_def_t * units,
         const char * idn1, const char * idn2, const char * idn3, const char * idn4,
         char * input_buffer, size_t input_buffer_length,
         scpi_error_t * error_queue_data, int16_t error_queue_size) {
     memset(context, 0, sizeof (*context));
-    context->cmdlist = commands;
+    context->cmdlist_const = commands_const;
+    context->cmdlist_var = commands_var;
     context->interface = interface;
     context->units = units;
     context->idn[0] = idn1;
@@ -1220,6 +1233,7 @@ scpi_bool_t SCPI_ParamCopyText(scpi_t * context, char * buffer, size_t buffer_le
  * @param parameter - should be PROGRAM_MNEMONIC
  * @param options - NULL terminated list of choices
  * @param value - index to options
+ * @warning linear list
  * @return
  */
 scpi_bool_t SCPI_ParamToChoice(scpi_t * context, scpi_parameter_t * parameter, const scpi_choice_def_t * options, int32_t * value) {
@@ -1255,6 +1269,7 @@ scpi_bool_t SCPI_ParamToChoice(scpi_t * context, scpi_parameter_t * parameter, c
  * @param options specifications of choices numbers (patterns)
  * @param tag numerical representatio of choice
  * @param text result text
+ * @warning linear search
  * @return TRUE if succesfule, else FALSE
  */
 scpi_bool_t SCPI_ChoiceToName(const scpi_choice_def_t * options, int32_t tag, const char ** text) {

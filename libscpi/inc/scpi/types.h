@@ -116,9 +116,9 @@ extern "C" {
     typedef struct _scpi_command_t scpi_command_t;
 
 #if USE_COMMAND_TAGS
-	#define SCPI_CMD_LIST_END       {NULL, NULL, 0}
+        #define SCPI_CMD_LIST_END       {NULL, NULL, 0}
 #else
-	#define SCPI_CMD_LIST_END       {NULL, NULL}
+        #define SCPI_CMD_LIST_END       {NULL, NULL}
 #endif
 
 
@@ -366,7 +366,8 @@ extern "C" {
     };
 
     struct _scpi_t {
-        const scpi_command_t * cmdlist;
+        const scpi_command_t * cmdlist_const;
+        const scpi_command_t * cmdlist_var;
         scpi_buffer_t buffer;
         scpi_param_list_t param_list;
         scpi_interface_t * interface;

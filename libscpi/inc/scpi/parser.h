@@ -44,7 +44,8 @@
 extern "C" {
 #endif
     void SCPI_Init(scpi_t * context,
-            const scpi_command_t * commands,
+            const scpi_command_t * commands_const,
+            const scpi_command_t * commands_var,
             scpi_interface_t * interface,
             const scpi_unit_def_t * units,
             const char * idn1, const char * idn2, const char * idn3, const char * idn4,
