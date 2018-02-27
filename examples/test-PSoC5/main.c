@@ -43,6 +43,7 @@
 
 char scpi_io_buff[SCPI_INPUT_BUFFER_LENGTH];
 
+void PuTTY_printf(void); 
 void PuTTY_printf(void) {
   fwrite(scpi_io_buff, 1, strlen(scpi_io_buff), stdout);
   int resu = fflush(stdout);
@@ -134,7 +135,8 @@ int main(int argc, char** argv) {
     int result;
 
     SCPI_Init(&scpi_context,
-            scpi_commands,
+	    in_scpicmd_name,
+            scpi_commands_var,
             &scpi_interface,
             scpi_units_def,
             SCPI_IDN1, SCPI_IDN2, SCPI_IDN3, SCPI_IDN4,
