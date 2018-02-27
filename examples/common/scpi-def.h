@@ -2,6 +2,7 @@
 #define __SCPI_DEF_H_
 
 #include "scpi/scpi.h"
+#include <string.h>
 
 #define SCPI_INPUT_BUFFER_LENGTH 256
 #define SCPI_ERROR_QUEUE_SIZE 17
@@ -9,9 +10,13 @@
 #define SCPI_IDN2 "INSTR2013"
 #define SCPI_IDN3 NULL
 #define SCPI_IDN4 "01-02"
-
+#if defined (__CYGWIN__)
+extern const scpi_command_t *in_scpicmd_name
+  (const char *str, size_t len);
+#else
 extern const scpi_command_t *in_scpicmd_name
   (const char *str, unsigned int len);
+#endif
 extern const scpi_command_t scpi_commands_var[];
 extern scpi_interface_t scpi_interface;
 extern char scpi_input_buffer[];
