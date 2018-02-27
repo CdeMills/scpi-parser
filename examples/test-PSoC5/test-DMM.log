@@ -1,0 +1,11 @@
+(main stderr) **Reset
+(main stdout) Laplace L&M(main stdout) ,(main stdout) LinLightLevel(main stdout) ,(main stdout) 0(main stdout) ,(main stdout) 20180215(main stdout) 
+(flush)
+(main stdout) 1999.0(main stdout) 
+(flush)
+(debug stderr) conf:size
+(debug stderr)	P1=16
+	P2=MINimum
+(debug stderr) 	P1=IMMediate (6)
+(debug stderr) soft_trig
+(main stderr) Start of Acquisition(main stderr) Stop of Acquisition(debug stderr) TRACe:DATa?

@@ -1,0 +1,27 @@
+**Reset
+meas:volt:dc
+	P1=12
+	P2=50
+**ERROR: -109, "Missing parameter"
+**SRQ: 0x64 (100)
+**ERROR: -113, "Undefined header"
+**SRQ: 0x60 (96)
+**ERROR: 0, "No error"
+meas:volt:dc
+	P1=0.01 V
+	P2=DEFault
+meas:volt:dc
+	P1=
+	P2=
+meas:volt:dc
+	P1=DEFault
+	P2=1e-05
+meas:volt:dc
+	P1=1e-05
+	P2=
+TEXT: ***a***
+TEXT: ***a a***
+TEXT: ***aa a***
+TEXT: ***aaa aaaa***
+**SRQ: 0x44 (68)
+**ERROR: -200, "Execution error"

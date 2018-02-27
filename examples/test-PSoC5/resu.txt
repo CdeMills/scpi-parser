@@ -1,0 +1,12 @@
+0;MANUFACTURE,INSTR2013,0,01-02
+1999.0
+MANUFACTURE,INSTR2013,0,01-02
+-109,"Missing parameter"
+-113,"Undefined header;IDN?"
+96
+33
+0
+0
+0
+0
+0

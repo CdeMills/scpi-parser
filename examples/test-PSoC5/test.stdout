@@ -1,0 +1,51 @@
+(main stderr) **Reset
+(debug stderr) meas:volt:dc
+(debug stderr)	P1=12
+	P2=50
+(main stdout) 0(main stdout) ;(main stdout) MANUFACTURE(main stdout) ,(main stdout) INSTR2013(main stdout) ,(main stdout) 0(main stdout) ,(main stdout) 01-02(main stdout) 
+(flush)
+(main stdout) 1999.0(main stdout) 
+(flush)
+(main stdout) MANUFACTURE(main stdout) ,(main stdout) INSTR2013(main stdout) ,(main stdout) 0(main stdout) ,(main stdout) 01-02(main stdout) 
+(flush)
+(main stderr) **ERROR: -109, "Missing parameter"
+(main stderr) **SRQ: 0x64 (100)
+(main stderr) **ERROR: -113, "Undefined header"
+(main stdout) -109(main stdout) ,(main stdout) "(main stdout) Missing parameter(main stdout) "(main stdout) 
+(flush)
+(main stderr) **SRQ: 0x60 (96)
+(main stderr) **ERROR: 0, "No error"
+(main stdout) -113(main stdout) ,(main stdout) "(main stdout) Undefined header(main stdout) ;(main stdout) IDN?(main stdout) "(main stdout) 
+(flush)
+(main stdout) 96(main stdout) 
+(flush)
+(main stdout) 33(main stdout) 
+(flush)
+(main stdout) 0(main stdout) 
+(flush)
+(debug stderr) meas:volt:dc
+(debug stderr)	P1=0.01 V
+	P2=DEFault
+(main stdout) 0(main stdout) 
+(flush)
+(debug stderr) meas:volt:dc
+(debug stderr)	P1=
+	P2=
+(main stdout) 0(main stdout) 
+(flush)
+(debug stderr) meas:volt:dc
+(debug stderr)	P1=DEFault
+	P2=1e-05
+(main stdout) 0(main stdout) 
+(flush)
+(debug stderr) meas:volt:dc
+(debug stderr)	P1=1e-05
+	P2=
+(main stdout) 0(main stdout) 
+(flush)
+(debug stderr) TEXT: ***a***
+(debug stderr) TEXT: ***a a***
+(debug stderr) TEXT: ***aa a***
+(debug stderr) TEXT: ***aaa aaaa***
+(main stderr) **SRQ: 0x44 (68)
+(main stderr) **ERROR: -200, "Execution error"
