@@ -44,8 +44,13 @@
 extern "C" {
 #endif
     void SCPI_Init(scpi_t * context,
+#if defined (__CYGWIN__)
+            const scpi_command_t *(*in_scpicmd_name)
+               (const char *str, size_t len),
+#else
             const scpi_command_t *(*in_scpicmd_name)
                (const char *str, unsigned int len),
+#endif
             const scpi_command_t * commands_var,
             scpi_interface_t * interface,
             const scpi_unit_def_t * units,
