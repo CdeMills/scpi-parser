@@ -8,10 +8,6 @@ PROG = test
 
 SRCS = main.c ../common/scpi-def.c
 
-../common/scpi-def.c: ../common/scpi-const.c
-../common/scpi-const.c: ../common/scpi-const.gperf
-	$(GPERF) $(GPERFFLAGS) < $< > $@ 
-
 CFLAGS += -Wextra -Wmissing-prototypes -Wimplicit -I ../../libscpi/inc/
 LDFLAGS += -lm ../../libscpi/dist/libscpi.a -Wl,--as-needed
 
@@ -23,6 +19,10 @@ OBJS = $(SRCS:.c=.o)
 
 .c.o:
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+
+../common/scpi-def.c: ../common/scpi-const.c
+../common/scpi-const.c: ../common/scpi-const.gperf
+	$(GPERF) $(GPERFFLAGS) < $< > $@ 
 
 $(PROG): $(OBJS)
 	$(CC) -o $@ $(OBJS) $(CFLAGS) $(LDFLAGS)
